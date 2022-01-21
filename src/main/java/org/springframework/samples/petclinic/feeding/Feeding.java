@@ -7,8 +7,8 @@ import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.Min;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Size;
 
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.samples.petclinic.model.BaseEntity;
@@ -20,25 +20,25 @@ import lombok.Setter;
 @Getter
 @Setter
 @Entity
-@Table(name = "feeding")
 public class Feeding extends BaseEntity{
-    //Integer id;
     
+	@NotNull
 	@Column(name = "start_date")
     @DateTimeFormat(pattern = "yyyy/MM/dd")
     LocalDate startDate;
     
+	@NotNull
+	@Min(1)
     @Column(name = "weeks_duration")
-    @Size(min = 1)
     double weeksDuration;
     
-    @NotNull
     @ManyToOne
+    @NotNull
     @JoinColumn(name = "pet_id")
     Pet pet;   
     
-    @NotNull
     @ManyToOne
-    @JoinColumn(name = "feeding_type")
+    @NotNull
+    @JoinColumn(name = "feeding_type_id")
     FeedingType feedingType;  
 }
